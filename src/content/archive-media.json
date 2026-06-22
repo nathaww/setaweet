@@ -1,0 +1,239 @@
+{
+  "monthly-circles": {
+    "cover": "/archive/monthly-circles/01.png",
+    "images": []
+  },
+  "arif-abbat": {
+    "cover": "/archive/arif-abbat/hero.png",
+    "images": [
+      "/archive/arif-abbat/01.png"
+    ]
+  },
+  "min-lebsa-neber": {
+    "cover": "/archive/min-lebsa-neber/hero.png",
+    "images": [
+      "/archive/min-lebsa-neber/01.jpg",
+      "/archive/min-lebsa-neber/02.jpg",
+      "/archive/min-lebsa-neber/03.png"
+    ]
+  },
+  "gendershops": {
+    "cover": "/archive/gendershops/hero.jpg",
+    "images": [
+      "/archive/gendershops/01.jpg",
+      "/archive/gendershops/02.jpg",
+      "/archive/gendershops/03.jpg",
+      "/archive/gendershops/04.jpg"
+    ],
+    "pdf": "/archive/gendershops/document.pdf"
+  },
+  "alegnta": {
+    "cover": "/archive/alegnta/hero.jpg",
+    "images": [
+      "/archive/alegnta/01.jpg",
+      "/archive/alegnta/02.jpg",
+      "/archive/alegnta/03.jpg",
+      "/archive/alegnta/04.jpg",
+      "/archive/alegnta/05.jpg"
+    ],
+    "audio": "/archive/alegnta/audio.mp3"
+  },
+  "writing-our-rights": {
+    "cover": "/archive/writing-our-rights/hero.jpg",
+    "images": [
+      "/archive/writing-our-rights/01.jpg"
+    ]
+  },
+  "meqenet": {
+    "cover": "/archive/meqenet/hero.jpg",
+    "images": [
+      "/archive/meqenet/01.jpg",
+      "/archive/meqenet/02.jpg",
+      "/archive/meqenet/03.jpg",
+      "/archive/meqenet/04.jpg",
+      "/archive/meqenet/05.jpg",
+      "/archive/meqenet/06.jpg"
+    ]
+  },
+  "data-project": {
+    "cover": "/archive/data-project/01.png",
+    "images": []
+  },
+  "tesfaweet": {
+    "cover": "/archive/tesfaweet/hero.jpg",
+    "images": [
+      "/archive/tesfaweet/01.jpeg",
+      "/archive/tesfaweet/02.jpeg",
+      "/archive/tesfaweet/03.jpeg",
+      "/archive/tesfaweet/04.png",
+      "/archive/tesfaweet/05.png",
+      "/archive/tesfaweet/06.png",
+      "/archive/tesfaweet/07.png",
+      "/archive/tesfaweet/08.png",
+      "/archive/tesfaweet/09.jpeg",
+      "/archive/tesfaweet/10.jpg",
+      "/archive/tesfaweet/11.jpg",
+      "/archive/tesfaweet/12.jpg",
+      "/archive/tesfaweet/13.jpg",
+      "/archive/tesfaweet/14.jpg"
+    ],
+    "pdf": "/archive/tesfaweet/document.pdf"
+  },
+  "policy-dialogues": {
+    "cover": "/archive/policy-dialogues/hero.jpg",
+    "images": [
+      "/archive/policy-dialogues/01.jpg"
+    ]
+  },
+  "womens-national-agenda": {
+    "cover": "/archive/womens-national-agenda/hero.jpg",
+    "images": [
+      "/archive/womens-national-agenda/01.jpg",
+      "/archive/womens-national-agenda/02.jpg",
+      "/archive/womens-national-agenda/03.jpg",
+      "/archive/womens-national-agenda/04.jpg",
+      "/archive/womens-national-agenda/05.jpg",
+      "/archive/womens-national-agenda/06.jpg",
+      "/archive/womens-national-agenda/07.jpg",
+      "/archive/womens-national-agenda/08.jpg",
+      "/archive/womens-national-agenda/09.jpg",
+      "/archive/womens-national-agenda/10.jpg",
+      "/archive/womens-national-agenda/11.jpg",
+      "/archive/womens-national-agenda/12.jpg",
+      "/archive/womens-national-agenda/13.jpg",
+      "/archive/womens-national-agenda/14.jpg",
+      "/archive/womens-national-agenda/15.jpg",
+      "/archive/womens-national-agenda/16.jpg",
+      "/archive/womens-national-agenda/17.jpg",
+      "/archive/womens-national-agenda/18.jpg",
+      "/archive/womens-national-agenda/19.jpg",
+      "/archive/womens-national-agenda/20.jpg",
+      "/archive/womens-national-agenda/21.jpg",
+      "/archive/womens-national-agenda/22.jpg",
+      "/archive/womens-national-agenda/23.jpg",
+      "/archive/womens-national-agenda/24.jpg"
+    ]
+  },
+  "meseret": {
+    "cover": "/archive/meseret/hero.jpg",
+    "images": [
+      "/archive/meseret/01.jpg",
+      "/archive/meseret/02.jpg",
+      "/archive/meseret/03.jpg",
+      "/archive/meseret/04.jpg",
+      "/archive/meseret/05.jpg",
+      "/archive/meseret/06.jpg",
+      "/archive/meseret/07.jpg"
+    ],
+    "video": "/archive/meseret/video.mp4"
+  },
+  "advocacy-campaign": {
+    "cover": "/archive/advocacy-campaign/hero.png",
+    "images": [
+      "/archive/advocacy-campaign/01.png",
+      "/archive/advocacy-campaign/02.png",
+      "/archive/advocacy-campaign/03.png",
+      "/archive/advocacy-campaign/04.png",
+      "/archive/advocacy-campaign/05.png"
+    ],
+    "audio": "/archive/advocacy-campaign/audio.mp3",
+    "pdf": "/archive/advocacy-campaign/document.pdf"
+  },
+  "misikir": {
+    "cover": "/archive/misikir/hero.jpg",
+    "images": [
+      "/archive/misikir/01.jpg",
+      "/archive/misikir/02.jpg",
+      "/archive/misikir/03.jpg",
+      "/archive/misikir/04.jpg",
+      "/archive/misikir/05.png",
+      "/archive/misikir/06.png",
+      "/archive/misikir/07.png",
+      "/archive/misikir/08.png",
+      "/archive/misikir/09.png",
+      "/archive/misikir/10.png",
+      "/archive/misikir/11.png"
+    ]
+  },
+  "trauma-healing": {
+    "cover": "/archive/trauma-healing/hero.jpg",
+    "images": [
+      "/archive/trauma-healing/01.jpg",
+      "/archive/trauma-healing/02.jpg",
+      "/archive/trauma-healing/03.jpg",
+      "/archive/trauma-healing/04.jpg",
+      "/archive/trauma-healing/05.jpg",
+      "/archive/trauma-healing/06.jpg",
+      "/archive/trauma-healing/07.jpg",
+      "/archive/trauma-healing/08.png",
+      "/archive/trauma-healing/09.jpg",
+      "/archive/trauma-healing/10.jpg",
+      "/archive/trauma-healing/11.jpg",
+      "/archive/trauma-healing/12.jpg",
+      "/archive/trauma-healing/13.jpg",
+      "/archive/trauma-healing/14.jpg"
+    ],
+    "pdf": "/archive/trauma-healing/document.pdf"
+  },
+  "transitional-justice": {
+    "cover": "/archive/transitional-justice/hero.jpg",
+    "images": [
+      "/archive/transitional-justice/01.jpg",
+      "/archive/transitional-justice/02.jpg",
+      "/archive/transitional-justice/03.jpg",
+      "/archive/transitional-justice/04.jpg",
+      "/archive/transitional-justice/05.jpg",
+      "/archive/transitional-justice/06.jpg",
+      "/archive/transitional-justice/07.jpg",
+      "/archive/transitional-justice/08.jpg",
+      "/archive/transitional-justice/09.jpg",
+      "/archive/transitional-justice/10.jpg"
+    ]
+  },
+  "humanitarian-support": {
+    "cover": "/archive/humanitarian-support/hero.jpg",
+    "images": [
+      "/archive/humanitarian-support/01.jpg",
+      "/archive/humanitarian-support/02.jpg",
+      "/archive/humanitarian-support/03.jpg",
+      "/archive/humanitarian-support/04.jpg",
+      "/archive/humanitarian-support/05.jpg",
+      "/archive/humanitarian-support/06.jpg",
+      "/archive/humanitarian-support/07.jpg",
+      "/archive/humanitarian-support/08.jpg",
+      "/archive/humanitarian-support/09.jpg",
+      "/archive/humanitarian-support/10.jpg",
+      "/archive/humanitarian-support/11.jpg"
+    ]
+  },
+  "leddoki": {
+    "cover": "/archive/leddoki/hero.jpg",
+    "images": [
+      "/archive/leddoki/01.jpg",
+      "/archive/leddoki/02.jpg",
+      "/archive/leddoki/03.jpg",
+      "/archive/leddoki/04.jpg",
+      "/archive/leddoki/05.jpg",
+      "/archive/leddoki/06.jpg",
+      "/archive/leddoki/07.jpg",
+      "/archive/leddoki/08.jpg",
+      "/archive/leddoki/09.jpg",
+      "/archive/leddoki/10.jpg",
+      "/archive/leddoki/11.jpg",
+      "/archive/leddoki/12.jpg",
+      "/archive/leddoki/13.jpg",
+      "/archive/leddoki/14.jpg",
+      "/archive/leddoki/15.jpg",
+      "/archive/leddoki/16.jpg",
+      "/archive/leddoki/17.jpeg"
+    ]
+  },
+  "negari": {
+    "cover": null,
+    "images": []
+  },
+  "milestone": {
+    "cover": "/archive/milestone/01.jpeg",
+    "images": []
+  }
+}
