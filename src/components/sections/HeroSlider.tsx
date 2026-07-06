@@ -182,18 +182,34 @@ export function HeroSlider() {
   const current = slides[active];
 
   return (
-    <section className="relative flex min-h-svh flex-col items-center justify-center overflow-x-clip pt-[var(--nav-h)]">
+    <section className="relative flex min-h-svh flex-col items-center justify-center overflow-x-clip pt-[calc(var(--nav-h)+1.5rem)] pb-16 md:pb-24">
       {/* Wordmark */}
       <div className="container-app flex flex-col items-center gap-3 text-center">
         <h1
           ref={headline}
-          className="reveal-init wordmark flex flex-wrap items-baseline justify-center gap-x-3 gap-y-1 text-paper"
+          className="reveal-init wordmark flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-paper"
         >
-          <span className="slab text-[0.5em] text-paper/70">2014 —</span>
-          <span style={{ fontSize: "var(--text-wordmark)" }}>THE SETAWEET ARCHIVE</span>
-          <span className="slab text-[0.5em] text-paper/70">— 2026</span>
+          <span
+            className="slab leading-none text-paper/70"
+            style={{ fontSize: "calc(var(--text-wordmark) * 0.36)" }}
+          >
+            2014 —
+          </span>
+          <span className="leading-none" style={{ fontSize: "var(--text-wordmark)" }}>
+            THE SETAWEET ARCHIVE
+          </span>
+          <span
+            className="slab leading-none text-paper/70"
+            style={{ fontSize: "calc(var(--text-wordmark) * 0.36)" }}
+          >
+            — 2026
+          </span>
         </h1>
         <p className="slab text-lead font-bold text-paper">Preserving Collective Memory.</p>
+        <p className="max-w-xl text-meta text-paper/55">
+          Browse, access, and download the Setaweet Movement&rsquo;s archive of research,
+          publications, and multimedia.
+        </p>
       </div>
 
       {/* Sort by year — single icon */}

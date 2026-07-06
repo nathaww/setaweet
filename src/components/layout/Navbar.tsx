@@ -10,7 +10,8 @@ import { usePageTransition } from "@/components/providers/PageTransition";
 import { cn } from "@/lib/utils";
 
 const NAV_LINKS = [
-  { label: "The setaweet story", href: "/" },
+  { label: "Home", href: "/" },
+  { label: "The Setaweet Story", href: "/story" },
   { label: "Impact Map", href: "/impact-map" },
   { label: "Call for Action", href: "/call-for-action" },
 ];
@@ -26,6 +27,10 @@ export function Navbar() {
     setQuery(value);
     if (value.trim() && pathname !== "/") navigate("/");
   };
+
+  // A link is active on an exact match, or (for parents) on any nested route.
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
 
   return (
     <header
@@ -54,7 +59,14 @@ export function Navbar() {
             {NAV_LINKS.map((link, i) => (
               <li key={link.href} className="flex items-center gap-2">
                 {i > 0 && <span aria-hidden className="text-paper/25">/</span>}
-                <Link href={link.href} className="transition-colors hover:text-paper">
+                <Link
+                  href={link.href}
+                  aria-current={isActive(link.href) ? "page" : undefined}
+                  className={cn(
+                    "whitespace-nowrap transition-colors hover:text-paper",
+                    isActive(link.href) && "text-paper"
+                  )}
+                >
                   {link.label}
                 </Link>
               </li>

@@ -82,7 +82,7 @@ export function Preloader() {
       ref={root}
       className="fixed inset-0 z-9999999 flex items-center justify-center overflow-hidden bg-ink"
     >
-      <div className="flex items-baseline justify-center whitespace-nowrap px-6">
+      <div className="flex items-center justify-center whitespace-nowrap px-6">
         <span data-year className="slab origin-center text-paper" style={{ fontSize: "var(--text-year)" }}>
           2014
         </span>

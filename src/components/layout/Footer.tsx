@@ -2,7 +2,8 @@ import Link from "next/link";
 import { Logo } from "@/components/ui/Logo";
 
 const FOOTER_LINKS = [
-  { label: "The setaweet story", href: "/story" },
+  { label: "Home", href: "/" },
+  { label: "The Setaweet Story", href: "/story" },
   { label: "Impact Map", href: "/impact-map" },
   { label: "Call for Action", href: "/call-for-action" },
 ];
