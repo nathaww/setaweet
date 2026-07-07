@@ -3,7 +3,7 @@
 import { useMemo, useRef } from "react";
 import { ArrowRight, ArrowUpRight, FileText, PlayCircle } from "lucide-react";
 import { gsap, useGSAP, ScrollTrigger } from "@/lib/gsap";
-import type { Project } from "@/data";
+import type { Project, SubProject } from "@/data";
 import { Plate } from "@/components/ui/Plate";
 import { Button } from "@/components/ui/Button";
 import { usePageTransition } from "@/components/providers/PageTransition";
@@ -11,20 +11,25 @@ import { useScrollProgress } from "@/components/layout/ScrollProgress";
 
 /* ----- horizontal panel model ----------------------------------------- */
 
+type MediaSource = Pick<Project, "video" | "audio" | "pdf" | "links" | "website">;
+
 type Block =
   | { kind: "hero" }
+  | { kind: "subheader"; sub: SubProject; index: number }
   | { kind: "text"; text: string }
   | { kind: "images"; images: Project["images"] }
-  | { kind: "media" }
+  | { kind: "media"; source: MediaSource }
   | { kind: "end" };
 
-/** Interleave the project's copy and images into a horizontal reading order:
- *  hero → para 1 → images → para 2 → more images → media → end. */
-function buildBlocks(project: Project): Block[] {
-  const paragraphs = project.description.split(/\n{2,}/);
-  const images = project.images;
-  const blocks: Block[] = [{ kind: "hero" }];
-
+/** Interleave a description and gallery into panels: para 1 → images → para 2 →
+ *  more images → media. Shared by the project and each of its sub-projects. */
+function pushContent(
+  blocks: Block[],
+  description: string,
+  images: Project["images"],
+  source: MediaSource
+) {
+  const paragraphs = description.split(/\n{2,}/);
   if (paragraphs[0]) blocks.push({ kind: "text", text: paragraphs[0] });
   const first = images.slice(0, 3);
   if (first.length) blocks.push({ kind: "images", images: first });
@@ -32,9 +37,20 @@ function buildBlocks(project: Project): Block[] {
   for (let i = 3; i < images.length; i += 3) {
     blocks.push({ kind: "images", images: images.slice(i, i + 3) });
   }
-  if (project.video || project.audio || project.pdf || project.links?.length) {
-    blocks.push({ kind: "media" });
+  if (source.video || source.audio || source.pdf || source.links?.length || source.website) {
+    blocks.push({ kind: "media", source });
   }
+}
+
+/** Horizontal reading order: hero → project copy/images/media → one subheader +
+ *  copy/images/media section per sub-project → end. */
+function buildBlocks(project: Project): Block[] {
+  const blocks: Block[] = [{ kind: "hero" }];
+  pushContent(blocks, project.description, project.images, project);
+  project.subProjects?.forEach((sub, i) => {
+    blocks.push({ kind: "subheader", sub, index: i + 1 });
+    pushContent(blocks, sub.description, sub.images, sub);
+  });
   blocks.push({ kind: "end" });
   return blocks;
 }
@@ -155,9 +171,30 @@ function Panel({
               {project.title}
             </h1>
           </div>
-          <figure className="photo-card aspect-3/2 h-[72vh] shrink-0">
-            <Plate image={project.cover} priority={first} sizes="70vw" tone={project.year} />
-          </figure>
+          {!project.subProjects?.length && (
+            <figure className="photo-card aspect-3/2 h-[72vh] shrink-0">
+              <Plate image={project.cover} priority={first} sizes="70vw" tone={project.year} />
+            </figure>
+          )}
+        </div>
+      );
+
+    case "subheader":
+      return (
+        <div className="flex h-full shrink-0 items-center gap-[5vw]">
+          <div className="flex flex-col gap-3">
+            <span className="micro text-paper/50">
+              {project.title} #{block.index}
+            </span>
+            <h2 className="wordmark text-paper" style={{ fontSize: "calc(var(--text-title) * 0.6)" }}>
+              {block.sub.title}
+            </h2>
+          </div>
+          {block.sub.cover.src && (
+            <figure className="photo-card aspect-3/2 h-[58vh] shrink-0">
+              <Plate image={block.sub.cover} sizes="60vw" tone={project.year} />
+            </figure>
+          )}
         </div>
       );
 
@@ -179,39 +216,40 @@ function Panel({
         </div>
       );
 
-    case "media":
+    case "media": {
+      const source = block.source;
       return (
         <div className="flex h-full shrink-0 flex-col items-start justify-center gap-5">
-          {project.video && (
+          {source.video && (
             <figure className="photo-card aspect-3/2 h-[58vh] shrink-0">
               <video
                 controls
                 preload="metadata"
                 className="h-full w-full object-cover"
-                src={project.video}
+                src={source.video}
               />
             </figure>
           )}
-          {project.audio && (
+          {source.audio && (
             <div className="flex w-[min(80vw,26rem)] flex-col gap-2">
               <span className="micro text-paper/50">Listen</span>
-              <audio controls preload="none" className="w-full" src={project.audio} />
+              <audio controls preload="none" className="w-full" src={source.audio} />
             </div>
           )}
-          {(project.pdf || project.links?.length) && (
+          {(source.pdf || source.links?.length || source.website) && (
             <div className="flex flex-wrap gap-3">
-              {project.pdf && (
-                <Button href={project.pdf} variant="outline" target="_blank" rel="noopener noreferrer">
+              {source.pdf && (
+                <Button href={source.pdf} variant="outline" target="_blank" rel="noopener noreferrer">
                   <FileText size={16} /> Read document
                 </Button>
               )}
-              {project.links?.map((href, i) => (
+              {source.links?.map((href, i) => (
                 <Button key={href} href={href} variant="outline" target="_blank" rel="noopener noreferrer">
-                  <PlayCircle size={16} /> Watch{project.links!.length > 1 ? ` ${i + 1}` : ""}
+                  <PlayCircle size={16} /> Watch{source.links!.length > 1 ? ` ${i + 1}` : ""}
                 </Button>
               ))}
-              {project.website && (
-                <Button href={project.website} target="_blank" rel="noopener noreferrer">
+              {source.website && (
+                <Button href={source.website} target="_blank" rel="noopener noreferrer">
                   Visit website <ArrowUpRight size={16} />
                 </Button>
               )}
@@ -219,6 +257,7 @@ function Panel({
           )}
         </div>
       );
+    }
 
     case "end":
       return (

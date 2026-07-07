@@ -6,7 +6,7 @@ import { buildMetadata } from "@/lib/seo";
 export const metadata: Metadata = buildMetadata({
   title: "Impact Map",
   description:
-    "A map of Setaweet's reach across Ethiopia — the regions, cities, and communities touched by a decade of feminist work.",
+    "A map of Setaweet's reach across Ethiopia: the regions, cities, and communities touched by a decade of feminist work.",
   path: "/impact-map",
 });
 

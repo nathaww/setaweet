@@ -258,7 +258,7 @@ export function HeroSlider() {
               aria-label={`${project.title}, ${project.year}`}
               aria-current={i === active}
               draggable={false}
-              className="absolute aspect-3/2 h-full will-change-transform"
+              className="absolute aspect-3/2 h-full cursor-pointer will-change-transform"
             >
               <span data-card-inner className="photo-card block h-full w-full overflow-hidden">
                 <Plate

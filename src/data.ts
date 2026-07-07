@@ -15,6 +15,20 @@ export type ArchiveImage = {
   alt: string;
 };
 
+/** A named campaign/effort that lives inside a parent project's page. */
+export type SubProject = {
+  slug: string;
+  title: string;
+  /** Paragraphs separated by a blank line. */
+  description: string;
+  cover: ArchiveImage;
+  images: ArchiveImage[];
+  video?: string;
+  audio?: string;
+  pdf?: string;
+  links?: string[];
+};
+
 export type Project = {
   slug: string;
   title: string;
@@ -32,6 +46,8 @@ export type Project = {
   /** External links (e.g. YouTube). */
   links?: string[];
   website?: string;
+  /** Sub-projects rendered as their own sections on the project page. */
+  subProjects?: SubProject[];
 };
 
 type MediaEntry = {
@@ -40,9 +56,17 @@ type MediaEntry = {
   video?: string;
   audio?: string;
   pdf?: string;
+  subProjects?: Record<string, Omit<MediaEntry, "subProjects">>;
 };
 
 const media = mediaManifest as Record<string, MediaEntry>;
+
+type SubProjectMeta = {
+  slug: string;
+  title: string;
+  description: string;
+  links?: string[];
+};
 
 type ProjectMeta = {
   slug: string;
@@ -51,6 +75,7 @@ type ProjectMeta = {
   description: string;
   links?: string[];
   website?: string;
+  subProjects?: SubProjectMeta[];
 };
 
 const META: ProjectMeta[] = [
@@ -127,11 +152,31 @@ const META: ProjectMeta[] = [
   },
   {
     slug: "advocacy-campaign",
-    title: "Advocacy Campaign",
+    title: "Advocacy Campaigns",
     year: 2022,
     description:
-      "Implemented across Addis Ababa and other major cities between December 2022 and March 2023, the Ahunim Alrefedem campaign — alongside the Lik Adelem campaign — was a multifaceted advocacy initiative addressing the experiences of women affected by gender-based violence during the war. The name 'Ahunim Alrefedem' ('It's still not late') framed the campaign as a call to accountability and a refusal to accept silence.\n\nThrough radio ads, social media outreach, curated screenings of the Misikir documentary, and public wall art and murals, the campaign amplified survivors' voices while fostering national awareness — engaging mainstream platforms including Sheger 102.1 FM and the Endalk ena Mahder program.",
-    links: ["https://youtu.be/Gkxkp6VoSEQ"],
+      "Setaweet's Advocacy Campaigns were a series of interlinked public initiatives implemented across Addis Ababa and other major cities between 2022 and 2023, addressing the experiences of women affected by gender-based violence during the war. Working across radio, television, social media, exhibitions, and public wall art, the campaigns amplified survivors' voices while fostering national awareness and a shared call to accountability.\n\nThree efforts made up the initiative: the Ahunim Alrefedem and Lik Aydelem campaigns, and the Unveiling Stories exhibition.",
+    subProjects: [
+      {
+        slug: "ahunim-alrefedem",
+        title: "Ahunim Alrefedem",
+        description:
+          "Implemented between December 2022 and March 2023, Ahunim Alrefedem ('It's still not late') framed the campaign as a call to accountability and a refusal to accept silence around wartime gender-based violence.\n\nThrough radio ads, social media outreach, curated screenings of the Misikir documentary, and public wall art and murals, the campaign amplified survivors' voices, engaging mainstream platforms including Sheger 102.1 FM and the Endalk ena Mahder program.",
+        links: ["https://youtu.be/Gkxkp6VoSEQ"],
+      },
+      {
+        slug: "lik-aydelem",
+        title: "Lik Aydelem",
+        description:
+          "Lik Aydelem ('It is not right') ran alongside Ahunim Alrefedem as a companion campaign confronting the normalization of violence against women. Through a broadcast campaign film, public wall art, and social media outreach, it carried the campaigns' message of accountability into everyday public spaces.",
+      },
+      {
+        slug: "unveiling-stories",
+        title: "Unveiling Stories",
+        description:
+          "Held at the Goethe-Institut in Addis Ababa during the 16 Days of Activism to End Violence Against Women, Unveiling Stories was a day-long exhibition unveiling survivors' testimonies, bringing their words into public view as an act of witness and remembrance.",
+      },
+    ],
   },
   {
     slug: "womens-national-agenda",
@@ -208,11 +253,25 @@ export const projects: Project[] = META.map((m) => {
     description: m.description,
     links: m.links,
     website: m.website,
-    cover: { src: assets.cover ?? undefined, alt: `${m.title} — cover` },
-    images: assets.images.map((src, i) => ({ src, alt: `${m.title} — image ${i + 1}` })),
+    cover: { src: assets.cover ?? undefined, alt: `${m.title} cover` },
+    images: assets.images.map((src, i) => ({ src, alt: `${m.title} image ${i + 1}` })),
     video: assets.video,
     audio: assets.audio,
     pdf: assets.pdf,
+    subProjects: m.subProjects?.map((s) => {
+      const sub = assets.subProjects?.[s.slug] ?? { cover: null, images: [] };
+      return {
+        slug: s.slug,
+        title: s.title,
+        description: s.description,
+        links: s.links,
+        cover: { src: sub.cover ?? undefined, alt: `${s.title} cover` },
+        images: sub.images.map((src, i) => ({ src, alt: `${s.title} image ${i + 1}` })),
+        video: sub.video,
+        audio: sub.audio,
+        pdf: sub.pdf,
+      };
+    }),
   };
 });
 

@@ -42,7 +42,8 @@
     "cover": "/archive/writing-our-rights/hero.jpg",
     "images": [
       "/archive/writing-our-rights/01.jpg"
-    ]
+    ],
+    "pdf": "/archive/writing-our-rights/document.pdf"
   },
   "meqenet": {
     "cover": "/archive/meqenet/hero.jpg",
@@ -129,15 +130,34 @@
   },
   "advocacy-campaign": {
     "cover": "/archive/advocacy-campaign/hero.png",
-    "images": [
-      "/archive/advocacy-campaign/01.png",
-      "/archive/advocacy-campaign/02.png",
-      "/archive/advocacy-campaign/03.png",
-      "/archive/advocacy-campaign/04.png",
-      "/archive/advocacy-campaign/05.png"
-    ],
-    "audio": "/archive/advocacy-campaign/audio.mp3",
-    "pdf": "/archive/advocacy-campaign/document.pdf"
+    "images": [],
+    "subProjects": {
+      "ahunim-alrefedem": {
+        "cover": "/archive/advocacy-campaign/ahunim-alrefedem/hero.png",
+        "images": [
+          "/archive/advocacy-campaign/ahunim-alrefedem/01.png",
+          "/archive/advocacy-campaign/ahunim-alrefedem/02.png",
+          "/archive/advocacy-campaign/ahunim-alrefedem/03.png",
+          "/archive/advocacy-campaign/ahunim-alrefedem/04.png",
+          "/archive/advocacy-campaign/ahunim-alrefedem/05.png"
+        ],
+        "audio": "/archive/advocacy-campaign/ahunim-alrefedem/audio.mp3"
+      },
+      "lik-aydelem": {
+        "cover": "/archive/advocacy-campaign/lik-aydelem/hero.jpg",
+        "images": [
+          "/archive/advocacy-campaign/lik-aydelem/01.png",
+          "/archive/advocacy-campaign/lik-aydelem/02.jpg",
+          "/archive/advocacy-campaign/lik-aydelem/03.png"
+        ],
+        "video": "/archive/advocacy-campaign/lik-aydelem/video.mp4"
+      },
+      "unveiling-stories": {
+        "cover": "/archive/advocacy-campaign/unveiling-stories/hero.png",
+        "images": [],
+        "pdf": "/archive/advocacy-campaign/unveiling-stories/document.pdf"
+      }
+    }
   },
   "misikir": {
     "cover": "/archive/misikir/hero.jpg",

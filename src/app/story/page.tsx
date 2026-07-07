@@ -5,7 +5,7 @@ import { buildMetadata } from "@/lib/seo";
 export const metadata: Metadata = buildMetadata({
   title: "The Setaweet Story",
   description:
-    "The story of the Setaweet Movement — a decade of feminist organizing in Ethiopia: the movement, its milestones, and its presence in the media.",
+    "The story of the Setaweet Movement, a decade of feminist organizing in Ethiopia: the movement, its milestones, and its presence in the media.",
   path: "/story",
 });
 
@@ -32,9 +32,9 @@ export default function StoryPage() {
   return (
     <div className="min-h-svh pb-28 md:pb-40">
       <PageHeader
-        kicker="2014 — 2026"
+        kicker="2014 to 2026"
         title="The Setaweet Story"
-        lead="A decade of feminist organizing in Ethiopia — told through the movement, its milestones, and its presence in the media."
+        lead="A decade of feminist organizing in Ethiopia, told through the movement, its milestones, and its presence in the media."
       />
 
       {/* In-page section index — jumps to the sections below. */}

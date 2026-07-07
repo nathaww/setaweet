@@ -1,12 +1,12 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Search } from "lucide-react";
 import { MuteToggle } from "@/components/ui/MuteToggle";
 import { SearchField } from "@/components/ui/SearchField";
 import { useSearch } from "@/components/providers/SearchProvider";
-import { usePageTransition } from "@/components/providers/PageTransition";
 import { cn } from "@/lib/utils";
 
 const NAV_LINKS = [
@@ -19,14 +19,13 @@ const NAV_LINKS = [
 /** Fixed top bar: Search (left) · primary links (center) · mute (right). */
 export function Navbar() {
   const { open, query, setQuery, toggle, close } = useSearch();
-  const { navigate } = usePageTransition();
   const pathname = usePathname();
 
-  // Searching from any other page jumps to the home archive to show results.
-  const onSearchChange = (value: string) => {
-    setQuery(value);
-    if (value.trim() && pathname !== "/") navigate("/");
-  };
+  // Search only exists on the home archive; leaving home closes it.
+  const isHome = pathname === "/";
+  useEffect(() => {
+    if (!isHome) close();
+  }, [isHome, close]);
 
   // A link is active on an exact match, or (for parents) on any nested route.
   const isActive = (href: string) =>
@@ -43,16 +42,20 @@ export function Navbar() {
         className="container-app flex items-center justify-between"
         style={{ height: "var(--nav-h)" }}
       >
-        <button
-          type="button"
-          onClick={toggle}
-          aria-expanded={open}
-          aria-label="Search"
-          className="flex items-center gap-2 text-sm text-paper/70 transition-colors hover:text-paper"
-        >
-          <Search size={16} strokeWidth={1.75} />
-          <span className="hidden sm:inline">Search</span>
-        </button>
+        {isHome ? (
+          <button
+            type="button"
+            onClick={toggle}
+            aria-expanded={open}
+            aria-label="Search"
+            className="flex cursor-pointer items-center gap-2 text-sm text-paper/70 transition-colors hover:text-paper"
+          >
+            <Search size={16} strokeWidth={1.75} />
+            <span className="hidden sm:inline">Search</span>
+          </button>
+        ) : (
+          <span aria-hidden /> // keeps the mute toggle pinned right
+        )}
 
         {!open && (
           <ul className="pointer-events-auto absolute left-1/2 hidden -translate-x-1/2 items-center gap-2 text-sm text-paper/60 md:flex">
@@ -77,9 +80,9 @@ export function Navbar() {
         <MuteToggle className="-mr-2" />
       </nav>
 
-      {open && (
+      {isHome && open && (
         <div className="container-app pb-4">
-          <SearchField value={query} onChange={onSearchChange} onClose={close} autoFocus />
+          <SearchField value={query} onChange={setQuery} onClose={close} autoFocus />
         </div>
       )}
     </header>
