@@ -7,7 +7,7 @@ export const siteConfig = {
   // Override in production via NEXT_PUBLIC_SITE_URL.
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://setaweet.com",
   description:
-    "The Setaweet Archive — preserving the collective memory of Ethiopia's feminist movement: a decade of circles, campaigns, and conversations since 2014.",
+    "The Setaweet Archive preserves the collective memory of Ethiopia's feminist movement: a decade of circles, campaigns, and conversations since 2014.",
   tagline: "Preserving Collective Memory.",
   locale: "en_US",
   twitter: "@setaweet",
@@ -39,7 +39,7 @@ export function buildMetadata({
   path = "/",
 }: BuildMetadataArgs = {}): Metadata {
   const url = new URL(path, siteConfig.url).toString();
-  const fullTitle = title ? `${title} — ${siteConfig.name}` : siteConfig.name;
+  const fullTitle = title ? `${title} · ${siteConfig.name}` : siteConfig.name;
 
   return {
     title: fullTitle,

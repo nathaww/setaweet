@@ -235,13 +235,6 @@ const META: ProjectMeta[] = [
     description:
       "Negari is powered by the Setaweet Movement — a contemporary Ethiopian feminist collective dedicated to advocacy, truth-telling, and memorialization. The project documents gender-based violence against women in conflict-affected regions, contributing to national healing and reconciliation.\n\nBuilt on extensive truth-seeking across affected regions, its survivor testimonies serve as historical records. Negari is not just an exhibition — it is a call to remember, to reflect, and to act.",
   },
-  {
-    slug: "milestone",
-    title: "10th Anniversary",
-    year: 2024,
-    description:
-      "In 2024 Setaweet marked its 10th anniversary — a decade since the movement's inception in July 2014. The milestone celebration brought together the community, partners, and allies who have shaped a decade of feminist organizing in Ethiopia.\n\nThe gathering honored the circles, campaigns, and conversations that grew from a single monthly meeting into a nationwide movement for gender equality and collective memory.",
-  },
 ];
 
 export const projects: Project[] = META.map((m) => {
