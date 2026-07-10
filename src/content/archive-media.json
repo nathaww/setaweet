@@ -249,8 +249,11 @@
     ]
   },
   "negari": {
-    "cover": null,
-    "images": []
+    "cover": "/archive/negari/hero.jpg",
+    "images": [
+      "/archive/negari/01.jpg",
+      "/archive/negari/02.jpg"
+    ]
   },
   "milestone": {
     "cover": "/archive/milestone/01.jpeg",
