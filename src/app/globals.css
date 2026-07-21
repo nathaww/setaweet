@@ -113,6 +113,26 @@
   }
 }
 
+/* ---------- Impact Map — pulsing pins ---------- */
+.im-pulse {
+  /* fill-box so transform-origin resolves to the circle's own centre, not the
+     SVG canvas origin (otherwise the ring scales toward the top-left corner). */
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: im-pulse 2.4s var(--ease-out-expo) infinite;
+}
+@keyframes im-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  70%,
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
 /* Hide scrollbars across browsers (page + any scroll container) */
 html {
   scrollbar-width: none; /* Firefox */

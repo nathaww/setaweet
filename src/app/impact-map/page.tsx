@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { ScaffoldNotice } from "@/components/layout/ScaffoldNotice";
+import { ImpactMap } from "@/components/sections/ImpactMap";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildMetadata({
@@ -16,12 +16,9 @@ export default function ImpactMapPage() {
       <PageHeader
         kicker="Reach"
         title="Impact Map"
-        lead="The regions, cities, and communities across Ethiopia touched by a decade of feminist work."
+        lead="The regions, cities, and communities across Ethiopia touched by a decade of feminist work. Zoom in and tap a pin to explore the projects rooted there."
       />
-      <ScaffoldNotice>
-        The interactive impact map is being prepared for this page. Let us know the
-        locations and figures to plot and we&rsquo;ll build it out here.
-      </ScaffoldNotice>
+      <ImpactMap />
     </div>
   );
 }
