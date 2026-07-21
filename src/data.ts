@@ -183,7 +183,7 @@ const META: ProjectMeta[] = [
     title: "Women's National Agenda",
     year: 2022,
     description:
-      "Under the Women's National Agenda, Setaweet convened the National Women's Forum and the National Women's Conference. The Forum, held in Bishoftu in June 2022, brought together close to one hundred women from several regions of Ethiopia to deliberate on contemporary women's issues and feminist organizing.\n\nThe National Women's Conference followed in April 2023 at the Hilton Hotel in Addis Ababa — a two-day gathering of hundreds of Ethiopian women focused on feminist movement-building and peace-building, with keynote speeches, documentary screenings, and experience-sharing on conflict, humanitarian response, and digital feminist organizing.",
+      "The Forum, held in Bishoftu in June 2022, brought together close to one hundred women from several regions of Ethiopia to deliberate on contemporary women's issues and feminist organizing.\n\nThe National Women's Conference followed in April 2023 at the Hilton Hotel in Addis Ababa — a two-day gathering of hundreds of Ethiopian women focused on feminist movement-building and peace-building, with keynote speeches, documentary screenings, and experience-sharing on conflict, humanitarian response, and digital feminist organizing.",
   },
   {
     slug: "meseret",

@@ -8,7 +8,7 @@ export const siteConfig = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://setaweet.com",
   description:
     "The Setaweet Archive preserves the collective memory of Ethiopia's feminist movement: a decade of circles, campaigns, and conversations since 2014.",
-  tagline: "Preserving Collective Memory.",
+  tagline: "",
   locale: "en_US",
   twitter: "@setaweet",
   keywords: [

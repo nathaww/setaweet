@@ -205,7 +205,6 @@ export function HeroSlider() {
             — 2026
           </span>
         </h1>
-        <p className="slab text-lead font-bold text-paper">Preserving Collective Memory.</p>
         <p className="max-w-xl text-meta text-paper/55">
           Browse, access, and download the Setaweet Movement&rsquo;s archive of research,
           publications, and multimedia.
