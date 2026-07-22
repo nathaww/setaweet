@@ -119,17 +119,39 @@
      SVG canvas origin (otherwise the ring scales toward the top-left corner). */
   transform-box: fill-box;
   transform-origin: center;
-  animation: im-pulse 2.4s var(--ease-out-expo) infinite;
+  animation: im-pulse 5.5s var(--ease-out-expo) infinite;
+}
+/* second, offset ring gives the layered "sonar" look */
+.im-pulse-2 {
+  animation-delay: 2.75s;
 }
 @keyframes im-pulse {
   0% {
     transform: scale(1);
-    opacity: 0.7;
+    opacity: 0.55;
   }
   70%,
   100% {
-    transform: scale(2.4);
+    transform: scale(2.8);
     opacity: 0;
+  }
+}
+
+/* Drifting clouds over the map */
+.im-cloud {
+  transform-box: fill-box;
+  animation: im-drift 90s ease-in-out infinite alternate;
+}
+.im-cloud-b {
+  animation-duration: 130s;
+  animation-direction: alternate-reverse;
+}
+@keyframes im-drift {
+  from {
+    transform: translateX(-14px);
+  }
+  to {
+    transform: translateX(22px);
   }
 }
 
