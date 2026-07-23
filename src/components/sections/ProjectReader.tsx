@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useRef } from "react";
-import { ArrowRight, ArrowUpRight, FileText, PlayCircle } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { ArrowRight, ArrowUpRight, FileText, PlayCircle, Play } from "lucide-react";
 import { useLenis } from "lenis/react";
 import { gsap, useGSAP, ScrollTrigger } from "@/lib/gsap";
 import type { Project, SubProject } from "@/data";
@@ -58,6 +58,64 @@ function buildBlocks(project: Project): Block[] {
 
 /** How far the reader travels per unit of horizontal swipe (1 = same as vertical scroll). */
 const SWIPE_SENSITIVITY = 2;
+
+/** Extract a YouTube video id from a watch/short URL, or null (e.g. playlists). */
+function youtubeId(url: string): string | null {
+  try {
+    const u = new URL(url);
+    if (u.hostname === "youtu.be") return u.pathname.slice(1) || null;
+    if (u.hostname.endsWith("youtube.com")) {
+      if (u.pathname === "/watch") return u.searchParams.get("v");
+      if (u.pathname.startsWith("/embed/")) return u.pathname.split("/")[2] || null;
+    }
+  } catch {
+    /* not a URL */
+  }
+  return null;
+}
+
+/**
+ * Lightweight YouTube embed: shows the thumbnail with a play button and only
+ * loads the (heavy) iframe player once clicked. `pointer-events` is forced on
+ * so it stays clickable under Lenis (which disables iframes while scrolling).
+ */
+function YouTubeEmbed({ id, title }: { id: string; title: string }) {
+  const [playing, setPlaying] = useState(false);
+  if (playing) {
+    return (
+      <iframe
+        src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`}
+        title={title}
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowFullScreen
+        className="h-full w-full"
+        style={{ pointerEvents: "auto" }}
+      />
+    );
+  }
+  return (
+    <button
+      type="button"
+      onClick={() => setPlaying(true)}
+      aria-label={`Play video: ${title}`}
+      className="group relative block h-full w-full cursor-pointer"
+      style={{ pointerEvents: "auto" }}
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element -- external YT thumb */}
+      <img
+        src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`}
+        alt=""
+        draggable={false}
+        className="h-full w-full object-cover"
+      />
+      <span className="absolute inset-0 grid place-items-center bg-ink/30 transition-colors group-hover:bg-ink/10">
+        <span className="grid h-16 w-16 place-items-center rounded-full bg-ink/70 text-paper backdrop-blur transition-transform group-hover:scale-110">
+          <Play size={26} className="translate-x-0.5 fill-current" />
+        </span>
+      </span>
+    </button>
+  );
+}
 
 /* ----- reader ---------------------------------------------------------- */
 
@@ -232,8 +290,19 @@ export function ProjectReader({ project, next }: { project: Project; next: Proje
 
 /* ----- shared media panel ---------------------------------------------- */
 
-function MediaLinks({ source }: { source: MediaSource }) {
-  if (!source.pdf && !source.links?.length && !source.website) return null;
+/**
+ * Buttons for links that aren't inline-embedded: PDFs, playlists / non-YouTube
+ * links, and the website. `links` defaults to all of a source's links but
+ * callers pass the non-embeddable subset (YouTube videos render as players).
+ */
+function MediaLinks({
+  source,
+  links = source.links,
+}: {
+  source: MediaSource;
+  links?: string[];
+}) {
+  if (!source.pdf && !links?.length && !source.website) return null;
   return (
     <div className="flex flex-wrap gap-3">
       {source.pdf && (
@@ -241,11 +310,14 @@ function MediaLinks({ source }: { source: MediaSource }) {
           <FileText size={16} /> Read document
         </Button>
       )}
-      {source.links?.map((href, i) => (
-        <Button key={href} href={href} variant="outline" target="_blank" rel="noopener noreferrer">
-          <PlayCircle size={16} /> Watch{source.links!.length > 1 ? ` ${i + 1}` : ""}
-        </Button>
-      ))}
+      {links?.map((href) => {
+        const playlist = href.includes("list=");
+        return (
+          <Button key={href} href={href} variant="outline" target="_blank" rel="noopener noreferrer">
+            <PlayCircle size={16} /> {playlist ? "Watch playlist" : "Watch on YouTube"}
+          </Button>
+        );
+      })}
       {source.website && (
         <Button href={source.website} target="_blank" rel="noopener noreferrer">
           Visit website <ArrowUpRight size={16} />
@@ -253,6 +325,18 @@ function MediaLinks({ source }: { source: MediaSource }) {
       )}
     </div>
   );
+}
+
+/** Split a source's links into embeddable YouTube videos and everything else. */
+function splitLinks(links?: string[]) {
+  const embeds: { url: string; id: string }[] = [];
+  const rest: string[] = [];
+  for (const url of links ?? []) {
+    const id = youtubeId(url);
+    if (id) embeds.push({ url, id });
+    else rest.push(url);
+  }
+  return { embeds, rest };
 }
 
 /* ----- horizontal panels ------------------------------------------------ */
@@ -329,8 +413,9 @@ function Panel({
 
     case "media": {
       const source = block.source;
+      const { embeds, rest } = splitLinks(source.links);
       return (
-        <div className="flex h-full shrink-0 flex-col items-start justify-center gap-5">
+        <div className="flex h-full shrink-0 items-center gap-[3vw]">
           {source.video && (
             <figure className="photo-card aspect-3/2 h-[58vh] shrink-0">
               <video
@@ -341,13 +426,22 @@ function Panel({
               />
             </figure>
           )}
-          {source.audio && (
-            <div className="flex w-[min(80vw,26rem)] flex-col gap-2">
-              <span className="micro text-paper/50">Listen</span>
-              <audio controls preload="none" className="w-full" src={source.audio} />
+          {embeds.map((e) => (
+            <figure key={e.id} className="photo-card aspect-video h-[58vh] shrink-0">
+              <YouTubeEmbed id={e.id} title={project.title} />
+            </figure>
+          ))}
+          {(source.audio || rest.length > 0 || source.pdf || source.website) && (
+            <div className="flex shrink-0 flex-col items-start justify-center gap-5">
+              {source.audio && (
+                <div className="flex w-[min(80vw,26rem)] flex-col gap-2">
+                  <span className="micro text-paper/50">Listen</span>
+                  <audio controls preload="none" className="w-full" src={source.audio} />
+                </div>
+              )}
+              <MediaLinks source={source} links={rest} />
             </div>
           )}
-          <MediaLinks source={source} />
         </div>
       );
     }
@@ -436,6 +530,7 @@ function MobilePanel({
 
     case "media": {
       const source = block.source;
+      const { embeds, rest } = splitLinks(source.links);
       return (
         <div className="flex flex-col items-start gap-5">
           {source.video && (
@@ -443,13 +538,18 @@ function MobilePanel({
               <video controls preload="metadata" className="w-full" src={source.video} />
             </figure>
           )}
+          {embeds.map((e) => (
+            <figure key={e.id} className="photo-card aspect-video w-full overflow-hidden">
+              <YouTubeEmbed id={e.id} title={project.title} />
+            </figure>
+          ))}
           {source.audio && (
             <div className="flex w-full flex-col gap-2">
               <span className="micro text-paper/50">Listen</span>
               <audio controls preload="none" className="w-full" src={source.audio} />
             </div>
           )}
-          <MediaLinks source={source} />
+          <MediaLinks source={source} links={rest} />
         </div>
       );
     }

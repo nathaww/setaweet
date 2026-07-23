@@ -99,6 +99,7 @@ const META: ProjectMeta[] = [
     year: 2018,
     description:
       "Min Lebsa Neber (#WhatSheWore) was a traveling exhibition implemented between 2018 and 2020 in Addis Ababa, Gondar, Wolaita, and Dire Dawa. It displayed clothes worn by survivors at the time of their sexual assault alongside personal testimonies shared by the survivors themselves.\n\nFirst presented at the Addis Ababa Museum in late 2018 — a collaboration between Setaweet, the Embassy of Sweden, and UN Women, with a final showcase at the Goethe-Institut — the exhibition confronted victim-blaming narratives and encouraged public dialogue on survivor experiences, accountability, and empathy.",
+    links: ["https://youtu.be/WpmzhtqHhUw"],
   },
   {
     slug: "gendershops",
@@ -128,6 +129,10 @@ const META: ProjectMeta[] = [
     year: 2020,
     description:
       "Launched in 2020, MeQenet is Setaweet's talk-show-style documentary series that first aired on Arts TV before continuing on YouTube to reach a broader audience. The series engaged with everyday Ethiopian realities through a distinctly feminist lens, interrogating social, cultural, and political issues while challenging dominant narratives.\n\nBy combining dialogue, critical analysis, and storytelling, MeQenet created a reflective space that highlights the gendered dimensions of societal issues and raises fundamental questions about feminism in the Ethiopian context — contributing to a localized feminist agenda and strengthening grassroots women's movements.",
+    links: [
+      "https://youtu.be/AXlV5KNclfI",
+      "https://youtube.com/playlist?list=PL3nTdsiMImry_Z6Zt8b2cmg6UVXT7gh-8",
+    ],
   },
   {
     slug: "data-project",
@@ -183,7 +188,21 @@ const META: ProjectMeta[] = [
     title: "Women's National Agenda",
     year: 2022,
     description:
-      "The Forum, held in Bishoftu in June 2022, brought together close to one hundred women from several regions of Ethiopia to deliberate on contemporary women's issues and feminist organizing.\n\nThe National Women's Conference followed in April 2023 at the Hilton Hotel in Addis Ababa — a two-day gathering of hundreds of Ethiopian women focused on feminist movement-building and peace-building, with keynote speeches, documentary screenings, and experience-sharing on conflict, humanitarian response, and digital feminist organizing.",
+      "The Women's National Agenda convened Ethiopian women from across the country around feminist organizing and movement-building through two national gatherings: the National Women's Forum and the National Women's Conference.",
+    subProjects: [
+      {
+        slug: "national-womens-forum",
+        title: "National Women's Forum",
+        description:
+          "The National Women's Forum, held in Bishoftu in June 2022, brought together close to one hundred women from several regions of Ethiopia to deliberate on contemporary women's issues and feminist organizing.",
+      },
+      {
+        slug: "national-womens-conference",
+        title: "National Women's Conference",
+        description:
+          "The National Women's Conference followed in April 2023 at the Hilton Hotel in Addis Ababa — a two-day gathering of hundreds of Ethiopian women focused on feminist movement-building and peace-building, with keynote speeches, documentary screenings, and experience-sharing on conflict, humanitarian response, and digital feminist organizing.",
+      },
+    ],
   },
   {
     slug: "meseret",
@@ -220,6 +239,7 @@ const META: ProjectMeta[] = [
     year: 2024,
     description:
       "Setaweet's Humanitarian Support project was implemented in November 2024 at the Shimelaku IDP Camp in Dabat Woreda, North Gondar, Amhara Region, to support conflict-affected internally displaced women and girls. It focused on women-headed households, survivors of gender-based violence, women with disabilities, and adolescent girls through dignity kits and targeted cash assistance.\n\nA total of 800 women and girls received dignity kits meeting UNFPA standards, while 340 women-headed households received two months of cash assistance. Recognized by the Bureau of Women and Social Affairs, the project marked one of the first large-scale gender-sensitive humanitarian interventions in the area and strengthened Setaweet's capacity in feminist humanitarian response.",
+    links: ["https://youtu.be/S1bBj_ehuT0"],
   },
   {
     slug: "leddoki",
