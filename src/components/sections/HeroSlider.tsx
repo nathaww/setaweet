@@ -8,7 +8,7 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
-import { gsap, useGSAP } from "@/lib/gsap";
+import { gsap, useGSAP, SplitText } from "@/lib/gsap";
 import { useReveal } from "@/hooks/useReveal";
 import { projects as ALL } from "@/data";
 import { useSearch } from "@/components/providers/SearchProvider";
@@ -48,6 +48,7 @@ export function HeroSlider() {
   const [active, setActive] = useState(() => focus(slides.length));
   const firstLayout = useRef(true);
   const viewport = useRef<HTMLDivElement>(null);
+  const caption = useRef<HTMLDivElement>(null);
   const cards = useRef<(HTMLButtonElement | null)[]>([]);
   const thumbs = useRef<(HTMLButtonElement | null)[]>([]);
   const dragging = useRef(false);
@@ -179,6 +180,32 @@ export function HeroSlider() {
     thumbs.current[active]?.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
   }, [active]);
 
+  // Split-text reveal of the year + title whenever the focused project
+  // changes; same character treatment as the page headline.
+  useGSAP(
+    () => {
+      const el = caption.current;
+      if (!el) return;
+
+      const mm = gsap.matchMedia();
+
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        const split = SplitText.create(el.querySelectorAll("[data-split]"), { type: "chars" });
+        gsap.from(split.chars, {
+          yPercent: 115,
+          opacity: 0,
+          rotateX: -80,
+          transformOrigin: "50% 100%",
+          stagger: 0.018,
+          duration: 0.6,
+          ease: "expo.out",
+        });
+        return () => split.revert();
+      });
+    },
+    { dependencies: [active, key] }
+  );
+
   const current = slides[active];
 
   return (
@@ -264,6 +291,7 @@ export function HeroSlider() {
                   image={project.cover}
                   tone={i}
                   priority={i === active}
+                  eager={Math.abs(i - active) <= WINDOW}
                   sizes="(max-width: 768px) 85vw, 42vw"
                 />
               </span>
@@ -294,8 +322,24 @@ export function HeroSlider() {
         </button>
       </div>
 
-      {/* Minimap (mobile) · counter (desktop) · Explore */}
+      {/* Caption · minimap (mobile) · counter (desktop) · Explore */}
       <div className="container-app flex flex-col items-center gap-5">
+        {current && (
+          // Keyed by slug: SplitText rewrites the DOM inside, so React must
+          // remount (not patch) the caption when the focused project changes.
+          <div
+            key={current.slug}
+            ref={caption}
+            className="flex flex-col items-center gap-1 overflow-hidden text-center"
+          >
+            <span data-split className="slab micro text-paper/50">
+              {current.year}
+            </span>
+            <p data-split className="wordmark text-xl text-paper md:text-2xl">
+              {current.title}
+            </p>
+          </div>
+        )}
         {slides.length > 1 && (
           <>
             {/* Mobile: thumbnail minimap */}

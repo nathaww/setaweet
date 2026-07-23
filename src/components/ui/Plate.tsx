@@ -8,6 +8,8 @@ type PlateProps = {
   /** Responsive sizes hint for next/image. */
   sizes?: string;
   priority?: boolean;
+  /** Eager-load without preloading — for above-the-fold images near the LCP. */
+  eager?: boolean;
   /** Varies the placeholder tone so adjacent frames stay distinguishable. */
   tone?: number;
   className?: string;
@@ -22,6 +24,7 @@ export function Plate({
   image,
   sizes = "(max-width: 768px) 70vw, 30vw",
   priority = false,
+  eager = false,
   tone = 0,
   className,
 }: PlateProps) {
@@ -34,6 +37,7 @@ export function Plate({
           fill
           sizes={sizes}
           priority={priority}
+          loading={priority ? undefined : eager ? "eager" : undefined}
           draggable={false}
           className="object-cover"
         />
