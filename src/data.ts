@@ -120,7 +120,7 @@ const META: ProjectMeta[] = [
     title: "Alegnta Hotline",
     year: 2019,
     description:
-      "Operating from 2019 to 2025, the Alegnta Hotline was a free, nationwide psycho-social support service established by Setaweet to assist survivors of sexual and gender-based violence. Accessible in Amharic, Afaan Oromo, and Sidama Afo, it was designed for inclusivity across diverse regions of Ethiopia.\n\nWith support from UN Women and Ethio Telecom, Alegnta evolved into a critical first-response mechanism — providing confidential, professional counseling and connecting callers to healthcare providers, legal institutions, and one-stop centers. By restoring a sense of agency and accessible pathways to support, it strengthened community responses to SGBV.",
+      "Operating from 2019 to 2025, the Alegnta Hotline was a free, nationwide psycho-social support service established by Setaweet to assist survivors of sexual and gender-based violence (SGBV). Accessible in Amharic, Afaan Oromo, and Sidama Afo, it was designed for inclusivity across diverse regions of Ethiopia.\n\nWith support from UN Women and Ethio Telecom, Alegnta evolved into a critical first-response mechanism, providing confidential, professional counseling and connecting callers to essential services including healthcare providers, legal institutions, one-stop centers, and in-person counseling resources. By mitigating the long-term psychological effects of violence — promoting recovery, resilience, and informed decision-making — and restoring a sense of agency and accessible pathways to support, it strengthened community responses to SGBV.",
     links: ["https://youtu.be/MU6e4660QIM", "https://youtu.be/g5vllZHto6U"],
   },
   {
@@ -166,20 +166,20 @@ const META: ProjectMeta[] = [
         slug: "ahunim-alrefedem",
         title: "Ahunim Alrefedem",
         description:
-          "Implemented between December 2022 and March 2023, Ahunim Alrefedem ('It's still not late') framed the campaign as a call to accountability and a refusal to accept silence around wartime gender-based violence.\n\nThrough radio ads, social media outreach, curated screenings of the Misikir documentary, and public wall art and murals, the campaign amplified survivors' voices, engaging mainstream platforms including Sheger 102.1 FM and the Endalk ena Mahder program.",
+          "Implemented across Addis Ababa and other major cities between December 2022 and March 2023, Ahunim Alrefedem ('It's still not late') framed the campaign as a call to accountability and a refusal to accept silence around wartime gender-based violence.\n\nThrough radio ads, social media outreach, curated screenings of the Misikir documentary, and public wall art and murals, the campaign amplified survivors' voices, engaging mainstream platforms including Sheger 102.1 FM and the Endalk ena Mahder program — where members of the Setaweet team discussed the campaign's significance and their experience producing Misikir.",
         links: ["https://youtu.be/Gkxkp6VoSEQ"],
       },
       {
         slug: "lik-aydelem",
         title: "Lik Aydelem",
         description:
-          "Lik Aydelem ('It is not right') ran alongside Ahunim Alrefedem as a companion campaign confronting the normalization of violence against women. Through a broadcast campaign film, public wall art, and social media outreach, it carried the campaigns' message of accountability into everyday public spaces.",
+          "Implemented as a national campaign across Ethiopia in 2022, Lik Aydelem ('It Is Not Normal') sought to challenge prevailing misconceptions around gender-based violence and its impact on individuals and communities. It raised public awareness of the many forms GBV can take — physical, emotional, psychological, sexual, and economic abuse — emphasizing that violence often extends beyond commonly recognized acts.\n\nThrough accessible public messaging and advocacy, the campaign encouraged critical reflection on social norms and behaviors that normalize, excuse, or conceal violence against women and girls, and directed survivors and community members to the Alegnta hotline for information, psychosocial support, and referrals to relevant services. By strengthening public understanding of gender-based violence and awareness of available support, Lik Aydelem contributed to broader national efforts to prevent violence, support survivors, and promote accountability.",
       },
       {
         slug: "unveiling-stories",
         title: "Unveiling Stories",
-        description:
-          "Held at the Goethe-Institut in Addis Ababa during the 16 Days of Activism to End Violence Against Women, Unveiling Stories was a day-long exhibition unveiling survivors' testimonies, bringing their words into public view as an act of witness and remembrance.",
+        // Per source content: image only, no written copy.
+        description: "",
       },
     ],
   },
@@ -194,13 +194,13 @@ const META: ProjectMeta[] = [
         slug: "national-womens-forum",
         title: "National Women's Forum",
         description:
-          "The National Women's Forum, held in Bishoftu in June 2022, brought together close to one hundred women from several regions of Ethiopia to deliberate on contemporary women's issues and feminist organizing.",
+          "The National Women's Forum, held in Bishoftu in June 2022, brought together close to one hundred women from several regions of Ethiopia to deliberate on contemporary women's issues and feminist organizing. It created a national space for women's rights advocates, activists, and organizations to reflect on key social, political, and gender-related challenges.\n\nBy encouraging collaboration and alliance-building across diverse regional and organizational backgrounds, the forum strengthened feminist networks across the country and contributed to a stronger, more connected feminist movement through collective strategizing, dialogue, and long-term movement-building.",
       },
       {
         slug: "national-womens-conference",
         title: "National Women's Conference",
         description:
-          "The National Women's Conference followed in April 2023 at the Hilton Hotel in Addis Ababa — a two-day gathering of hundreds of Ethiopian women focused on feminist movement-building and peace-building, with keynote speeches, documentary screenings, and experience-sharing on conflict, humanitarian response, and digital feminist organizing.",
+          "The National Women's Conference followed in April 2023 at the Hilton Hotel in Addis Ababa — a two-day gathering of hundreds of Ethiopian women focused on feminist movement-building and peace-building. It featured keynote speeches, documentary screenings, breakout sessions, and experience-sharing on conflict, humanitarian response, women's participation in peace processes, African feminism, and digital feminist organizing, with participants reflecting on the role of women in the upcoming national dialogue process.\n\nAs the concluding event in the Policy Dialogues series, the conference created a platform for women's rights advocates and organizations from across the country to learn from one another, strengthen solidarity, and advance collective advocacy, sisterhood, and movement-building in Ethiopia.",
       },
     ],
   },
@@ -209,14 +209,14 @@ const META: ProjectMeta[] = [
     title: "Meseret",
     year: 2022,
     description:
-      "Meseret was implemented from August 2022 to March 2025 in Tigray and Addis Ababa in partnership with Addis Powerhouse, with support from the Spanish Cooperation. The project strengthened feminist movements through women's circles that created supportive spaces to discuss social issues, exchange experiences, and build solidarity at the grassroots level.\n\nThrough weekly feminist dialogue sessions, business-development trainings, and project-planning workshops, Meseret combined movement-building with economic empowerment for women from marginalized and conflict-affected communities — supporting new mothers, deaf women workers, and survivors of conflict-related sexual violence, and strengthening local leadership across regions.",
+      "Meseret was implemented from August 2022 to March 2025 in Tigray and Addis Ababa in partnership with Addis Powerhouse, with financial support from the Spanish Cooperation and in collaboration with local organizations including N4ED, Teki Paper Bags, Yamlak Lijoch Aras Bet Foundation, and Chura Abugida Artistic Association. The project strengthened feminist movements through women's circles that created supportive spaces to discuss social issues, exchange experiences, and build solidarity at the grassroots level.\n\nThrough weekly feminist dialogue sessions — six per group — business-development trainings, and project-planning workshops, Meseret combined movement-building with economic empowerment for women from marginalized and conflict-affected communities, supporting new mothers, deaf women workers, and survivors of conflict-related sexual violence. The content was tailored to each group, and for the group in Adigrat it was interpreted into Tigrinya with the support of an external facilitator — strengthening local leadership across regions.",
   },
   {
     slug: "misikir",
     title: "Misikir",
     year: 2023,
     description:
-      "Misikir is a feminist documentary film developed between 2023 and 2025 across the Afar, Amhara, Benishangul-Gumuz, and Tigray regions of Ethiopia, centering the lived experiences of women in displacement camps directly impacted by armed conflict. Through an intimate, grounded approach, the film documents the consequences of conflicts that began in November 2020 and the continued effects of inter-communal violence.\n\nThe title — derived from the Amharic word for 'witness' — foregrounds women as authoritative narrators of their own histories. Rather than reproducing reductionist portrayals of suffering, Misikir prioritizes specificity and agency, offering a nuanced, ethically grounded counter-narrative that fosters empathy and solidarity among women.",
+      "Misikir is a feminist documentary film developed between 2023 and 2025 across the Afar, Amhara, Benishangul-Gumuz, and Tigray regions of Ethiopia, centering the lived experiences of women in displacement camps directly impacted by armed conflict. Through an intimate, grounded approach, the film documents the consequences of conflicts that began in November 2020 in Tigray and the continued effects of inter-communal violence in Oromia and Benishangul-Gumuz.\n\nThe title — derived from the Amharic word for 'witness' — foregrounds women as authoritative narrators of their own histories. Rather than reproducing reductionist portrayals of suffering, Misikir prioritizes specificity and agency, offering a nuanced, ethically grounded counter-narrative that fosters empathy and solidarity among women.",
     links: ["https://youtu.be/mPhti0ydKLk", "https://youtu.be/cwBnIiQaljQ"],
   },
   {
@@ -238,7 +238,7 @@ const META: ProjectMeta[] = [
     title: "Humanitarian Support",
     year: 2024,
     description:
-      "Setaweet's Humanitarian Support project was implemented in November 2024 at the Shimelaku IDP Camp in Dabat Woreda, North Gondar, Amhara Region, to support conflict-affected internally displaced women and girls. It focused on women-headed households, survivors of gender-based violence, women with disabilities, and adolescent girls through dignity kits and targeted cash assistance.\n\nA total of 800 women and girls received dignity kits meeting UNFPA standards, while 340 women-headed households received two months of cash assistance. Recognized by the Bureau of Women and Social Affairs, the project marked one of the first large-scale gender-sensitive humanitarian interventions in the area and strengthened Setaweet's capacity in feminist humanitarian response.",
+      "Setaweet's Humanitarian Support project was implemented in November 2024 at the Shimelaku IDP Camp in Dabat Woreda, North Gondar, Amhara Region, to support conflict-affected internally displaced women and girls. It focused on women-headed households, survivors of gender-based violence, women with disabilities, and adolescent girls through dignity kits and targeted cash assistance.\n\nA total of 800 women and girls received dignity kits meeting UNFPA standards, while 340 women-headed households received two months of cash assistance totaling 14,000 Birr per household. Recognized by the Bureau of Women and Social Affairs, the project marked one of the first large-scale gender-sensitive humanitarian interventions in the area and strengthened Setaweet's capacity in feminist humanitarian response.",
     links: ["https://youtu.be/S1bBj_ehuT0"],
   },
   {
