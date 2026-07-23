@@ -38,7 +38,7 @@ const C = {
   pinDeep: "#0d8f6c",
   label: "#8a8a8a", // map label text
   ink: "#f4f3f0", // headings
-  surface: "#0e0e0e", // cards / panel
+  surface: "var(--color-background)", // cards / panel / controls
 };
 
 /** Project real [lon, lat] into the base SVG coordinate space (pre-transform). */
@@ -765,7 +765,7 @@ function ControlButton({
       aria-label={label}
       onClick={onClick}
       className="ease-out-expo grid h-9 w-9 cursor-pointer place-items-center rounded-md border backdrop-blur transition duration-200 hover:border-teal active:scale-95"
-      style={{ background: "#141918cc", borderColor: C.stroke, color: C.ink }}
+      style={{ background: C.surface, borderColor: C.stroke, color: C.ink }}
     >
       {children}
     </button>
@@ -883,7 +883,7 @@ function PointCard({
         left,
         top,
         visibility: h === 0 ? "hidden" : "visible",
-        background: "#141918f2",
+        background: C.surface,
         borderColor: C.stroke,
         backdropFilter: "blur(6px)",
       }}

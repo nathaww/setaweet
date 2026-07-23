@@ -7,7 +7,11 @@ import { gsap } from "@/lib/gsap";
 
 const BLOCKS = 20;
 
-type PageTransitionContextValue = { navigate: (url: string) => void };
+type PageTransitionContextValue = {
+  /** Returns true if the transition started, false if it was a no-op (already
+   *  transitioning, or navigating to the current path). */
+  navigate: (url: string) => boolean;
+};
 const PageTransitionContext = createContext<PageTransitionContextValue | null>(null);
 
 export function usePageTransition() {
@@ -55,7 +59,7 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
 
   const navigate = useCallback(
     (url: string) => {
-      if (transitioning.current || url === pathname) return;
+      if (transitioning.current || url === pathname) return false;
       transitioning.current = true;
       if (overlay.current) overlay.current.style.pointerEvents = "auto";
 
@@ -66,6 +70,7 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
         ease: "power3.out",
         transformOrigin: "left",
       });
+      return true;
     },
     [pathname, router]
   );

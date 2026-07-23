@@ -20,8 +20,9 @@ const SPACING = 0.56; // center-to-center gap as a fraction of card width
 const WINDOW = 3; // cards rendered each side of center (rest are parked/hidden)
 
 /**
- * Home coverflow. The focused cover is sharp & centered (browse) or aligned
- * left (while searching); neighbours scale, dim and blur with distance.
+ * Home coverflow. The focused cover is sharp & centered (untouched browse) or
+ * aligned left once the user searches or sorts, so a sorted run reads as an
+ * ordered sequence from the first slide; neighbours scale, dim and blur.
  * Draggable, arrow/keyboard navigable. Search comes from the Navbar; one icon
  * sorts by year. Clicking the focused cover opens its project.
  */
@@ -29,6 +30,9 @@ export function HeroSlider() {
   const { navigate } = usePageTransition();
   const { debouncedQuery } = useSearch();
   const [dir, setDir] = useState<"asc" | "desc">("asc");
+  // Whether the user has explicitly sorted. Browse opens centered; sorting (or
+  // searching) switches to a left-aligned rail that reads as an ordered run.
+  const [sortTouched, setSortTouched] = useState(false);
   const headline = useReveal<HTMLHeadingElement>({ type: "chars", stagger: 0.02, delay: 0.1 });
 
   const q = debouncedQuery.trim().toLowerCase();
@@ -41,8 +45,12 @@ export function HeroSlider() {
     return [...filtered].sort((a, b) => (dir === "asc" ? a.year - b.year : b.year - a.year));
   }, [q, dir]);
 
+  // Untouched browse is centered on the middle cover. Searching or sorting
+  // switches to a left-aligned rail that starts on the first slide of the order
+  // (lowest year for asc, highest for desc) so the sequence reads left→right and
+  // the direction is obvious.
   const filtering = q !== "";
-  const align: "center" | "left" = filtering ? "left" : "center";
+  const align: "center" | "left" = filtering || sortTouched ? "left" : "center";
   const focus = (len: number) => (align === "left" ? 0 : Math.floor(len / 2));
 
   const [active, setActive] = useState(() => focus(slides.length));
@@ -241,7 +249,10 @@ export function HeroSlider() {
       {/* Sort by year — single icon */}
       <button
         type="button"
-        onClick={() => setDir((d) => (d === "asc" ? "desc" : "asc"))}
+        onClick={() => {
+          setSortTouched(true);
+          setDir((d) => (d === "asc" ? "desc" : "asc"));
+        }}
         aria-label={dir === "asc" ? "Sort by year: oldest first" : "Sort by year: newest first"}
         title={dir === "asc" ? "Oldest first" : "Newest first"}
         className="absolute right-(--gutter) top-[calc(var(--nav-h)+0.5rem)] grid h-9 w-9 cursor-pointer place-items-center text-paper/60 transition-colors hover:text-paper"

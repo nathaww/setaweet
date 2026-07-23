@@ -1,13 +1,19 @@
 /**
  * Geographic pins for the Impact Map.
  *
- * Each point is a real place (by [lon, lat]) where Setaweet worked. A point can
- * carry several projects — the map card lists them, each linking to its project
- * page. Titles/years are NOT duplicated here; they are resolved from the single
- * source of truth in src/data.ts via `projectsBySlug` at render time.
+ * Source of truth: "Impact Map Locations.docx". Each point is a real place
+ * (by [lon, lat]) where Setaweet worked; a point can carry several projects and
+ * a project can appear at several points. Titles/years are NOT duplicated here
+ * — they resolve from src/data.ts at render time.
  *
- * `region` matches a region slug in src/content/ethiopia-map.json so hovering /
- * selecting a pin can highlight the region it sits in.
+ * Projects listed in the document with an unknown location ("?") deliberately
+ * have no pin, and show as dimmed entries in the index:
+ *   - Transitional Justice
+ *   - Trauma Healing Work
+ *   - Advocacy Campaign > Lek Adelem
+ *   - Women's National Agenda > National Women's Conference
+ *
+ * `region` matches a region slug in src/content/ethiopia-map.json.
  */
 export type MapPoint = {
   id: string;
@@ -32,19 +38,17 @@ export const MAP_POINTS: MapPoint[] = [
     lat: 9.0331,
     hub: true,
     projects: [
-      "monthly-circles",
-      "arif-abbat",
+      "monthly-circles", // Monthly Circles & Quarterly Open Sessions
+      "arif-abbat", // 1st Exhibition
       "min-lebsa-neber",
-      "gendershops",
+      "gendershops", // Addis Ababa and across Ethiopia
+      "alegnta", // nationwide, run from Addis
       "writing-our-rights",
-      "alegnta",
       "meqenet",
       "data-project",
       "policy-dialogues",
-      "advocacy-campaign",
-      "womens-national-agenda",
       "meseret",
-      "transitional-justice",
+      "advocacy-campaign", // Unveiling Stories
     ],
   },
   {
@@ -53,7 +57,7 @@ export const MAP_POINTS: MapPoint[] = [
     region: "tigray",
     lon: 39.4753,
     lat: 13.4967,
-    projects: ["arif-abbat"],
+    projects: ["arif-abbat", "misikir"], // 2nd Exhibition; Misikir in Tigray
   },
   {
     id: "adigrat",
@@ -61,7 +65,7 @@ export const MAP_POINTS: MapPoint[] = [
     region: "tigray",
     lon: 39.4618,
     lat: 14.2769,
-    projects: ["meseret", "trauma-healing"],
+    projects: ["meseret"],
   },
   {
     id: "gondar",
@@ -77,7 +81,15 @@ export const MAP_POINTS: MapPoint[] = [
     region: "amhara",
     lon: 38.0167,
     lat: 11.85,
-    projects: ["tesfaweet"],
+    projects: ["tesfaweet"], // Debre Tabor, Farta, South Gondar
+  },
+  {
+    id: "bahir-dar",
+    city: "Amhara",
+    region: "amhara",
+    lon: 37.3908,
+    lat: 11.5936,
+    projects: ["misikir", "negari"],
   },
   {
     id: "dabat",
@@ -86,14 +98,6 @@ export const MAP_POINTS: MapPoint[] = [
     lon: 37.7644,
     lat: 12.9836,
     projects: ["humanitarian-support"],
-  },
-  {
-    id: "debre-birhan",
-    city: "Debre Birhan",
-    region: "amhara",
-    lon: 39.5321,
-    lat: 9.6797,
-    projects: ["trauma-healing"],
   },
   {
     id: "dire-dawa",
@@ -109,7 +113,7 @@ export const MAP_POINTS: MapPoint[] = [
     region: "oromia",
     lon: 38.9833,
     lat: 8.75,
-    projects: ["womens-national-agenda"],
+    projects: ["womens-national-agenda"], // National Women's Forum
   },
   {
     id: "hawassa",
@@ -117,11 +121,11 @@ export const MAP_POINTS: MapPoint[] = [
     region: "snnpr",
     lon: 38.4762,
     lat: 7.0622,
-    projects: ["leddoki"],
+    projects: ["leddoki"], // Hawassa, Sidama
   },
   {
-    id: "wolaita",
-    city: "Wolaita",
+    id: "wolayita",
+    city: "Wolayita",
     region: "snnpr",
     lon: 37.7667,
     lat: 6.8167,
@@ -141,6 +145,14 @@ export const MAP_POINTS: MapPoint[] = [
     region: "benishangul-gumuz",
     lon: 34.5333,
     lat: 10.0667,
-    projects: ["misikir"],
+    projects: ["misikir", "negari"],
+  },
+  {
+    id: "somali",
+    city: "Somali",
+    region: "somali",
+    lon: 42.8,
+    lat: 9.35,
+    projects: ["negari"],
   },
 ];

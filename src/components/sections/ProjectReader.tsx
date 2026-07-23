@@ -80,11 +80,19 @@ export function ProjectReader({ project, next }: { project: Project; next: Proje
   const navigated = useRef(false);
 
   const blocks = useMemo(() => buildBlocks(project), [project]);
+  // The first gallery block is the likely LCP when the hero shows no cover
+  // (e.g. projects with sub-projects) — load it eagerly.
+  const firstImagesIdx = useMemo(
+    () => blocks.findIndex((b) => b.kind === "images"),
+    [blocks]
+  );
   const nextUrl = `/projects/${next.slug}`;
+  // Latch only when navigation actually starts. Previously this latched even
+  // when navigate() bailed out mid-transition, which left the reader unable to
+  // advance (scroll OR button) for the rest of that project.
   const goNext = () => {
     if (navigated.current) return;
-    navigated.current = true;
-    navigate(nextUrl);
+    if (navigate(nextUrl)) navigated.current = true;
   };
 
   useGSAP(
@@ -102,7 +110,17 @@ export function ProjectReader({ project, next }: { project: Project; next: Proje
         const zone = () => window.innerHeight * 0.6; // "keep scrolling" overscroll
         const total = () => Math.max(1, tr.scrollWidth - window.innerWidth);
 
+        // Start at the top before the pinned trigger measures, so it can't
+        // inherit the previous project's scroll position (which reads as
+        // "already at the end").
+        lenisRef.current?.scrollTo(0, { immediate: true });
+        window.scrollTo(0, 0);
+
         progress?.setManual(true);
+        // Only auto-advance once the reader has genuinely been scrolled toward
+        // the end. Without this, the trigger could fire on creation (progress
+        // ~1 from a stale scroll position) and jam navigation.
+        let armed = false;
         const st = ScrollTrigger.create({
           trigger: sec,
           start: "top top",
@@ -116,9 +134,14 @@ export function ProjectReader({ project, next }: { project: Project; next: Proje
             gsap.set(tr, { x: -Math.min(dist, t) });
             // Bar reflects content progress — full once the last panel is in view.
             progress?.setProgress(dist / t);
-            if (self.progress >= 0.985) goNext();
+            if (self.progress < 0.9) armed = true;
+            if (armed && self.progress >= 0.985) goNext();
           },
         });
+
+        // Recompute pin height / dimensions once layout settles after the route
+        // change, so ScrollTrigger and Lenis agree on the scrollable range.
+        const raf = requestAnimationFrame(() => ScrollTrigger.refresh());
 
         // Horizontal trackpad/mouse swipes drive the track too: the sideways
         // delta is re-dispatched as a vertical wheel event straight to window,
@@ -146,6 +169,7 @@ export function ProjectReader({ project, next }: { project: Project; next: Proje
         sec.addEventListener("wheel", onWheel, { passive: false });
 
         return () => {
+          cancelAnimationFrame(raf);
           sec.removeEventListener("wheel", onWheel);
           st.kill();
           progress?.setManual(false);
@@ -180,6 +204,7 @@ export function ProjectReader({ project, next }: { project: Project; next: Proje
               project={project}
               next={next}
               first={i === 0}
+              eager={i === firstImagesIdx}
               onNext={goNext}
             />
           ))}
@@ -195,6 +220,7 @@ export function ProjectReader({ project, next }: { project: Project; next: Proje
               block={block}
               project={project}
               next={next}
+              eager={i === firstImagesIdx}
               onNext={goNext}
             />
           ))}
@@ -236,12 +262,14 @@ function Panel({
   project,
   next,
   first,
+  eager,
   onNext,
 }: {
   block: Block;
   project: Project;
   next: Project;
   first: boolean;
+  eager?: boolean;
   onNext: () => void;
 }) {
   switch (block.kind) {
@@ -293,7 +321,7 @@ function Panel({
         <div className="flex h-full shrink-0 items-center gap-[3vw]">
           {block.images.map((image, i) => (
             <figure key={i} className="photo-card aspect-3/2 h-[58vh] shrink-0">
-              <Plate image={image} sizes="60vw" tone={i + 1} />
+              <Plate image={image} sizes="60vw" tone={i + 1} eager={eager && i === 0} />
             </figure>
           ))}
         </div>
@@ -350,11 +378,13 @@ function MobilePanel({
   block,
   project,
   next,
+  eager,
   onNext,
 }: {
   block: Block;
   project: Project;
   next: Project;
+  eager?: boolean;
   onNext: () => void;
 }) {
   switch (block.kind) {
@@ -398,7 +428,7 @@ function MobilePanel({
         <div className="flex flex-col gap-4">
           {block.images.map((image, i) => (
             <figure key={i} className="photo-card aspect-3/2 w-full">
-              <Plate image={image} sizes="92vw" tone={i + 1} />
+              <Plate image={image} sizes="92vw" tone={i + 1} eager={eager && i === 0} />
             </figure>
           ))}
         </div>
