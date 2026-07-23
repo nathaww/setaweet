@@ -3,7 +3,13 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, Search, X } from "lucide-react";
+import {
+  ArrowDownWideNarrow,
+  ArrowUpNarrowWide,
+  Menu,
+  Search,
+  X,
+} from "lucide-react";
 import { MuteToggle } from "@/components/ui/MuteToggle";
 import { SearchField } from "@/components/ui/SearchField";
 import { useSearch } from "@/components/providers/SearchProvider";
@@ -19,7 +25,7 @@ const NAV_LINKS = [
 /** Fixed top bar: Search (left) · primary links (center) · mute + menu (right).
  *  On mobile the links live in a dropdown behind the hamburger button. */
 export function Navbar() {
-  const { open, query, setQuery, toggle, close } = useSearch();
+  const { open, query, setQuery, toggle, close, sortDir, toggleSort } = useSearch();
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
 
@@ -53,19 +59,36 @@ export function Navbar() {
         style={{ height: "var(--nav-h)" }}
       >
         {isHome ? (
-          <button
-            type="button"
-            onClick={() => {
-              setMenuOpen(false);
-              toggle();
-            }}
-            aria-expanded={open}
-            aria-label="Search"
-            className="flex cursor-pointer items-center gap-2 text-sm text-paper/70 transition-colors hover:text-paper"
-          >
-            <Search size={16} strokeWidth={1.75} />
-            <span className="hidden sm:inline">Search</span>
-          </button>
+          <div className="flex items-center gap-2 sm:gap-4">
+            <button
+              type="button"
+              onClick={() => {
+                setMenuOpen(false);
+                toggle();
+              }}
+              aria-expanded={open}
+              aria-label="Search"
+              className="flex cursor-pointer items-center gap-2 text-sm text-paper/70 transition-colors hover:text-paper"
+            >
+              <Search size={16} strokeWidth={1.75} />
+              <span className="hidden sm:inline">Search</span>
+            </button>
+            <button
+              type="button"
+              onClick={toggleSort}
+              aria-label={
+                sortDir === "asc" ? "Sort by year: oldest first" : "Sort by year: newest first"
+              }
+              title={sortDir === "asc" ? "Oldest first" : "Newest first"}
+              className="grid h-9 w-9 cursor-pointer place-items-center text-paper/70 transition-colors hover:text-paper"
+            >
+              {sortDir === "asc" ? (
+                <ArrowUpNarrowWide size={18} strokeWidth={1.75} />
+              ) : (
+                <ArrowDownWideNarrow size={18} strokeWidth={1.75} />
+              )}
+            </button>
+          </div>
         ) : (
           <span aria-hidden /> // keeps the right-side controls pinned right
         )}

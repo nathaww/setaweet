@@ -2,6 +2,8 @@
 
 import { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
 
+type SortDir = "asc" | "desc";
+
 type SearchContextValue = {
   open: boolean;
   /** Raw value bound to the input (updates immediately). */
@@ -11,6 +13,11 @@ type SearchContextValue = {
   setQuery: (q: string) => void;
   toggle: () => void;
   close: () => void;
+  /** Home-archive sort direction (by year). Shared with the Navbar control. */
+  sortDir: SortDir;
+  /** True once the user has toggled sort — drives the left-aligned rail. */
+  sortTouched: boolean;
+  toggleSort: () => void;
 };
 
 const SearchContext = createContext<SearchContextValue | null>(null);
@@ -21,6 +28,8 @@ export function SearchProvider({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
+  const [sortDir, setSortDir] = useState<SortDir>("asc");
+  const [sortTouched, setSortTouched] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   // Debounce the query so filtering / transitions don't run on every keystroke.
@@ -43,8 +52,14 @@ export function SearchProvider({ children }: { children: React.ReactNode }) {
         setQuery("");
         setDebouncedQuery("");
       },
+      sortDir,
+      sortTouched,
+      toggleSort: () => {
+        setSortTouched(true);
+        setSortDir((d) => (d === "asc" ? "desc" : "asc"));
+      },
     }),
-    [open, query, debouncedQuery]
+    [open, query, debouncedQuery, sortDir, sortTouched]
   );
 
   return <SearchContext.Provider value={value}>{children}</SearchContext.Provider>;

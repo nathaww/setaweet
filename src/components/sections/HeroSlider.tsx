@@ -1,13 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import {
-  ArrowRight,
-  ArrowDownWideNarrow,
-  ArrowUpNarrowWide,
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { gsap, useGSAP, SplitText } from "@/lib/gsap";
 import { useReveal } from "@/hooks/useReveal";
 import { projects as ALL } from "@/data";
@@ -28,11 +22,8 @@ const WINDOW = 3; // cards rendered each side of center (rest are parked/hidden)
  */
 export function HeroSlider() {
   const { navigate } = usePageTransition();
-  const { debouncedQuery } = useSearch();
-  const [dir, setDir] = useState<"asc" | "desc">("asc");
-  // Whether the user has explicitly sorted. Browse opens centered; sorting (or
-  // searching) switches to a left-aligned rail that reads as an ordered run.
-  const [sortTouched, setSortTouched] = useState(false);
+  // Search + sort both live in the Navbar (shared via SearchProvider).
+  const { debouncedQuery, sortDir, sortTouched } = useSearch();
   const headline = useReveal<HTMLHeadingElement>({ type: "chars", stagger: 0.02, delay: 0.1 });
 
   const q = debouncedQuery.trim().toLowerCase();
@@ -42,8 +33,8 @@ export function HeroSlider() {
           (p) => p.title.toLowerCase().includes(q) || p.description.toLowerCase().includes(q)
         )
       : ALL;
-    return [...filtered].sort((a, b) => (dir === "asc" ? a.year - b.year : b.year - a.year));
-  }, [q, dir]);
+    return [...filtered].sort((a, b) => (sortDir === "asc" ? a.year - b.year : b.year - a.year));
+  }, [q, sortDir]);
 
   // Untouched browse is centered on the middle cover. Searching or sorting
   // switches to a left-aligned rail that starts on the first slide of the order
@@ -218,14 +209,21 @@ export function HeroSlider() {
 
   return (
     <section className="relative flex min-h-svh flex-col items-center justify-center overflow-x-clip pt-[calc(var(--nav-h)+1.5rem)] pb-16 md:pb-24">
-      {/* Wordmark */}
+      {/* Wordmark. Mobile stacks "2014 — 2026" above the title (avoids an ugly
+          wrap); md+ flanks the title with the two years on one line. */}
       <div className="container-app flex flex-col items-center gap-3 text-center">
         <h1
           ref={headline}
-          className="reveal-init wordmark flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-paper"
+          className="reveal-init wordmark flex flex-col items-center gap-y-1 text-paper md:flex-row md:flex-wrap md:justify-center md:gap-x-3"
         >
           <span
-            className="slab leading-none text-paper/70"
+            className="slab leading-none text-paper/60 md:hidden"
+            style={{ fontSize: "clamp(0.85rem, 3vw, 1.1rem)", letterSpacing: "0.08em" }}
+          >
+            2014 — 2026
+          </span>
+          <span
+            className="slab hidden leading-none text-paper/70 md:inline"
             style={{ fontSize: "calc(var(--text-wordmark) * 0.36)" }}
           >
             2014 —
@@ -234,7 +232,7 @@ export function HeroSlider() {
             THE SETAWEET ARCHIVE
           </span>
           <span
-            className="slab leading-none text-paper/70"
+            className="slab hidden leading-none text-paper/70 md:inline"
             style={{ fontSize: "calc(var(--text-wordmark) * 0.36)" }}
           >
             — 2026
@@ -245,20 +243,6 @@ export function HeroSlider() {
           publications, and multimedia.
         </p>
       </div>
-
-      {/* Sort by year — single icon */}
-      <button
-        type="button"
-        onClick={() => {
-          setSortTouched(true);
-          setDir((d) => (d === "asc" ? "desc" : "asc"));
-        }}
-        aria-label={dir === "asc" ? "Sort by year: oldest first" : "Sort by year: newest first"}
-        title={dir === "asc" ? "Oldest first" : "Newest first"}
-        className="absolute right-(--gutter) top-[calc(var(--nav-h)+0.5rem)] grid h-9 w-9 cursor-pointer place-items-center text-paper/60 transition-colors hover:text-paper"
-      >
-        {dir === "asc" ? <ArrowUpNarrowWide size={18} /> : <ArrowDownWideNarrow size={18} />}
-      </button>
 
       {/* Coverflow */}
       <div
