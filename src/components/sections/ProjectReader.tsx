@@ -362,7 +362,12 @@ function Panel({
         <div className="flex h-full shrink-0 items-center gap-[5vw]">
           <div className="flex flex-col gap-3">
             <span className="micro text-paper/50">{project.year}</span>
-            <h1 className="wordmark text-paper" style={{ fontSize: "var(--text-title)" }}>
+            {/* max-w in em (scales with the fluid title size) gives every title
+                the same column width, so long ones wrap instead of stretching. */}
+            <h1
+              className="wordmark max-w-[9em] text-balance text-paper"
+              style={{ fontSize: "var(--text-title)" }}
+            >
               {project.title}
             </h1>
           </div>
@@ -381,7 +386,10 @@ function Panel({
             <span className="micro text-paper/50">
               {project.title} #{block.index}
             </span>
-            <h2 className="wordmark text-paper" style={{ fontSize: "calc(var(--text-title) * 0.6)" }}>
+            <h2
+              className="wordmark max-w-[9em] text-balance text-paper"
+              style={{ fontSize: "calc(var(--text-title) * 0.6)" }}
+            >
               {block.sub.title}
             </h2>
           </div>

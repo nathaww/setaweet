@@ -220,13 +220,13 @@ export function HeroSlider() {
             className="slab leading-none text-paper/60 md:hidden"
             style={{ fontSize: "clamp(0.85rem, 3vw, 1.1rem)", letterSpacing: "0.08em" }}
           >
-            2014 — 2026
+            2014 - 2026
           </span>
           <span
             className="slab hidden leading-none text-paper/70 md:inline"
             style={{ fontSize: "calc(var(--text-wordmark) * 0.36)" }}
           >
-            2014 —
+            2014 -
           </span>
           <span className="leading-none" style={{ fontSize: "var(--text-wordmark)" }}>
             THE SETAWEET ARCHIVE
@@ -235,7 +235,7 @@ export function HeroSlider() {
             className="slab hidden leading-none text-paper/70 md:inline"
             style={{ fontSize: "calc(var(--text-wordmark) * 0.36)" }}
           >
-            — 2026
+            - 2026
           </span>
         </h1>
         <p className="max-w-xl text-meta text-paper/55">

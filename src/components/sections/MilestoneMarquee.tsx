@@ -28,10 +28,11 @@ export function MilestoneMarquee({ images }: { images: MarqueeImage[] }) {
 
       const mm = gsap.matchMedia();
 
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
+      // Seconds per image — lower is faster. Mobile drifts a bit quicker.
+      const runMarquee = (perItem: number) => () => {
         const tween = gsap.to(track, {
           xPercent: -50,
-          duration: images.length * 2.5,
+          duration: images.length * perItem,
           ease: "none",
           repeat: -1,
         });
@@ -44,7 +45,10 @@ export function MilestoneMarquee({ images }: { images: MarqueeImage[] }) {
           el.removeEventListener("pointerleave", resume);
           tween.kill();
         };
-      });
+      };
+
+      mm.add("(prefers-reduced-motion: no-preference) and (max-width: 767px)", runMarquee(1.6));
+      mm.add("(prefers-reduced-motion: no-preference) and (min-width: 768px)", runMarquee(2.5));
 
       // Reduced motion: no drift; the row scrolls by hand and the duplicate
       // copy is dropped.
@@ -73,7 +77,10 @@ export function MilestoneMarquee({ images }: { images: MarqueeImage[] }) {
               key={`${dupe}-${image.src}`}
               data-dupe={dupe || undefined}
               aria-hidden={dupe || undefined}
-              className="photo-card h-[46vh] max-h-105 min-h-70 shrink-0"
+              // Mobile: a fixed near-full-width box at a moderate height; the
+              // image is contained (never cropped). md+: a height-based strip
+              // where the box matches each photo's aspect ratio.
+              className="h-[44vh] w-[86vw] shrink-0 overflow-hidden md:h-[46vh] md:max-h-105 md:min-h-70 md:w-auto"
               style={{ aspectRatio: `${image.width} / ${image.height}` }}
             >
               <Image
@@ -81,10 +88,10 @@ export function MilestoneMarquee({ images }: { images: MarqueeImage[] }) {
                 alt={dupe ? "" : image.alt}
                 width={image.width}
                 height={image.height}
-                sizes="(max-width: 768px) 70vw, 40vw"
+                sizes="(max-width: 768px) 86vw, 40vw"
                 loading={i < 4 ? "eager" : "lazy"}
                 draggable={false}
-                className="h-full w-full object-cover"
+                className="h-full w-full object-contain md:object-cover"
               />
             </figure>
           ))
